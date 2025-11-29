@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио учителя истории и обществознания</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/styles/main-page.css">
+    <link rel="stylesheet" href="static/styles/about.css">
+    <link rel="stylesheet" href="static/styles/science.css">
+    <link rel="stylesheet" href="static/styles/culture.css">
+    <!-- <script src="{{ url_for('static', filename='scripts/script.js') }}" defer></script> -->
+    <!--<script src="{{ url_for('static', filename='scripts/about.js') }}" defer></script> -->
+</head>
+<body>
+
+<header>
+    <div class="container header-container">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="logo-text">
+                <div class="logo-name">Марина Борисовна Вахромеева</div>
+                <div class="logo-subtitle">УЧИТЕЛЬ ИСТОРИИ И ОБЩЕСТВОЗНАНИЯ</div>
+            </div>
+        </div>
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul>
+                <li><a href="/about"><i class="fas fa-user"></i> Информация</a></li>
+                <li><a href="/science"><i class="fas fa-flask"></i> Наука</a></li>
+                <li><a href="/achievements"><i class="fas fa-trophy"></i> Достижения</a></li>
+                <li><a href="/cultural"><i class="fas fa-monument"></i>Культура</a></li>
+                <li><a href="/contact" class="nav-cta">Связаться</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="barrier">
+
+</div>
+
+<main role="main" class="main-content">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

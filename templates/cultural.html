@@ -1,0 +1,397 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <h1>Культурно-просветительская работа</h1>
+            <p>Экскурсии, мероприятия и образовательные проекты для приобщения учащихся к культурному наследию</p>
+        </div>
+    </div>
+</section>
+
+<section class="activities-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Наши мероприятия</h2>
+        </div>
+        <div class="activities-description">
+            <p>Организация культурно-просветительских мероприятий - важная часть образовательного процесса. Мы регулярно
+                проводим экскурсии, тематические вечера, встречи с интересными людьми и другие события, которые помогают
+                учащимся глубже понять историю и культуру нашей страны.</p>
+        </div>
+
+        <!-- VK Integration Section -->
+        <div class="vk-integration">
+            <div class="container">
+                <div class="vk-container">
+                    <a href="https://vk.com/public123456789" class="vk-community-link" target="_blank">
+                        <i class="fab fa-vk vk-logo"></i>
+                        <span>Наше сообщество ВКонтакте</span>
+                    </a>
+
+                    <div class="video-input-section">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Добавить
+                            видео из ВКонтакте</h3>
+                        <div class="video-input-group">
+                            <input type="text" id="videoUrl" class="video-url-input"
+                                   placeholder="Вставьте ссылку на видео из ВК...">
+                            <button class="btn btn-gold" id="addVideoBtn">Добавить видео</button>
+                        </div>
+                        <p style="text-align: center; font-size: 0.9rem; color: #666;">
+                            Скопируйте ссылку на видео из вашего сообщества ВКонтакте и вставьте в поле выше
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Videos Grid -->
+        <div class="videos-grid" id="videos-container">
+            <!-- Videos will be dynamically inserted here -->
+        </div>
+    </div>
+</section>
+
+<!-- Events Section -->
+<section class="events-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Ближайшие мероприятия</h2>
+        </div>
+        <div class="events-grid" id="events-container">
+            <!-- Events will be dynamically inserted here -->
+        </div>
+    </div>
+</section>
+
+<!-- Photo Gallery -->
+<section class="gallery-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Фотогалерея</h2>
+        </div>
+        <div class="gallery-grid" id="gallery-container">
+            <!-- Gallery items will be dynamically inserted here -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-vk"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Портфолио учителя истории и обществознания. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+        // Sample data for cultural activities
+        const culturalVideos = [
+            {
+                id: 1,
+                title: "Экскурсия в исторический музей",
+                description: "Учащиеся 10 класса посетили выставку, посвященную Древней Руси",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                date: "15.10.2023",
+                views: 234
+            },
+            {
+                id: 2,
+                title: "Тематический вечер 'Эпоха Возрождения'",
+                description: "Ученики представили проекты о великих художниках и мыслителях эпохи",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                date: "22.09.2023",
+                views: 187
+            },
+            {
+                id: 3,
+                title: "Встреча с ветеранами",
+                description: "Традиционная встреча с участниками Великой Отечественной войны",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                date: "05.05.2023",
+                views: 456
+            }
+        ];
+
+        const culturalEvents = [
+            {
+                id: 1,
+                title: "Экскурсия в Кремль",
+                date: "25.11.2023",
+                description: "Посещение архитектурного ансамбля Московского Кремля",
+                image: "https://source.unsplash.com/random/600x400/?kremlin"
+            },
+            {
+                id: 2,
+                title: "Литературный вечер",
+                date: "15.12.2023",
+                description: "Чтение произведений русских классиков XIX века",
+                image: "https://source.unsplash.com/random/600x400/?library,books"
+            },
+            {
+                id: 3,
+                title: "Мастер-класс по народным промыслам",
+                date: "20.01.2024",
+                description: "Знакомство с традиционными русскими ремеслами",
+                image: "https://source.unsplash.com/random/600x400/?craft,art"
+            }
+        ];
+
+        const galleryPhotos = [
+            "https://source.unsplash.com/random/600x400/?museum,history",
+            "https://source.unsplash.com/random/600x400/?excursion",
+            "https://source.unsplash.com/random/600x400/?students,learning",
+            "https://source.unsplash.com/random/600x400/?art,gallery",
+            "https://source.unsplash.com/random/600x400/?history,culture",
+            "https://source.unsplash.com/random/600x400/?monument,heritage"
+        ];
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+        }
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (header && window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else if (header) {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Функция для показа уведомлений
+        function showNotification(message, type = 'info') {
+            // Создаем элемент уведомления
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Показываем уведомление
+            setTimeout(() => notification.classList.add('show'), 100);
+
+            // Автоматически скрываем через 4 секунды
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Функция для преобразования VK видео ссылки в embed
+        function convertVKVideoUrl(vkUrl) {
+            try {
+                // Для VK видео нужно извлечь video_id из ссылки
+                // Пример: https://vk.com/video-12345_45678
+                const url = new URL(vkUrl);
+                const pathParts = url.pathname.split('/');
+                const videoPart = pathParts.find(part => part.startsWith('video'));
+
+                if (videoPart) {
+                    // VK не предоставляет прямые embed ссылки, поэтому используем альтернативный подход
+                    // В реальном приложении нужно использовать VK API
+                    return "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Заглушка
+                }
+
+                throw new Error('Неверная ссылка VK видео');
+            } catch (error) {
+                console.error('Ошибка преобразования ссылки:', error);
+                throw new Error('Не удалось обработать ссылку на видео');
+            }
+        }
+
+        // Функция для добавления нового видео
+        async function addNewVideo(videoUrl, title = "Новое видео", description = "Видео из ВКонтакте") {
+            try {
+                const embedUrl = await convertVKVideoUrl(videoUrl);
+
+                const newVideo = {
+                    id: Date.now(), // Генерируем уникальный ID
+                    title: title,
+                    description: description,
+                    videoUrl: embedUrl,
+                    date: new Date().toLocaleDateString('ru-RU'),
+                    views: 0
+                };
+
+                culturalVideos.unshift(newVideo);
+                renderVideos();
+                showNotification('Видео успешно добавлено!', 'success');
+
+            } catch (error) {
+                console.error('Ошибка добавления видео:', error);
+                showNotification(error.message, 'error');
+            }
+        }
+
+        // Функция рендеринга видео
+        function renderVideos() {
+            const videosContainer = document.getElementById('videos-container');
+            if (!videosContainer) return;
+
+            videosContainer.innerHTML = '';
+
+            culturalVideos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <div class="video-player">
+                        <iframe src="${video.videoUrl}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-content">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-description">${video.description}</p>
+                        <div class="video-meta">
+                            <div class="video-date">
+                                <i class="far fa-calendar"></i> ${video.date}
+                            </div>
+                            <div class="video-views">
+                                <i class="far fa-eye"></i> ${video.views} просмотров
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                videosContainer.appendChild(videoCard);
+
+                // Анимация появления
+                setTimeout(() => {
+                    videoCard.classList.add('animate');
+                }, 100);
+            });
+        }
+
+        // Функция рендеринга мероприятий
+        function renderEvents() {
+            const eventsContainer = document.getElementById('events-container');
+            if (!eventsContainer) return;
+
+            eventsContainer.innerHTML = '';
+
+            culturalEvents.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-image">
+                        <img src="${event.image}" alt="${event.title}" loading="lazy">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">${event.date}</div>
+                        <h3 class="event-title">${event.title}</h3>
+                        <p class="event-description">${event.description}</p>
+                    </div>
+                `;
+
+                eventsContainer.appendChild(eventCard);
+            });
+        }
+
+        // Функция рендеринга галереи
+        function renderGallery() {
+            const galleryContainer = document.getElementById('gallery-container');
+            if (!galleryContainer) return;
+
+            galleryContainer.innerHTML = '';
+
+            galleryPhotos.forEach(photoUrl => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `
+                    <img src="${photoUrl}" alt="Фото мероприятия" loading="lazy">
+                `;
+
+                galleryContainer.appendChild(galleryItem);
+            });
+        }
+
+        // Инициализация страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Рендерим все секции
+            renderVideos();
+            renderEvents();
+            renderGallery();
+
+            // Обработчик добавления видео
+            const addVideoBtn = document.getElementById('addVideoBtn');
+            const videoUrlInput = document.getElementById('videoUrl');
+
+            if (addVideoBtn && videoUrlInput) {
+                addVideoBtn.addEventListener('click', () => {
+                    const url = videoUrlInput.value.trim();
+                    if (url) {
+                        addNewVideo(url);
+                        videoUrlInput.value = '';
+                    } else {
+                        showNotification('Введите ссылку на видео', 'error');
+                    }
+                });
+
+                // Добавляем обработчик на Enter
+                videoUrlInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        addVideoBtn.click();
+                    }
+                });
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+
+
+</script>
+{% endblock %}

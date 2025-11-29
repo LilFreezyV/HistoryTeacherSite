@@ -1,0 +1,532 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <h1>Научная деятельность учащихся</h1>
+            <p>Исследовательские работы, проекты и достижения моих учеников в области истории и обществознания</p>
+        </div>
+    </div>
+</section>
+
+<!-- Filters Section -->
+<section class="filters-section">
+    <div class="container">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="category">Категория работы</label>
+                <select id="category" class="filter-select">
+                    <option value="all">Все категории</option>
+                    <option value="history">Историческое исследование</option>
+                    <option value="society">Обществоведческий проект</option>
+                    <option value="local">Краеведение</option>
+                    <option value="culture">История культуры</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="year">Год выполнения</label>
+                <select id="year" class="filter-select">
+                    <option value="all">Все годы</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="class">Класс</label>
+                <select id="class" class="filter-select">
+                    <option value="all">Все классы</option>
+                    <option value="10">10 класс</option>
+                    <option value="9">9 класс</option>
+                    <option value="8">8 класс</option>
+                    <option value="7">7 класс</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search" class="search-input" placeholder="Поиск по названию или автору...">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scientific Works Grid -->
+<section class="works-section">
+    <div class="container">
+        <div class="works-grid" id="works-container">
+            <!-- Work cards will be dynamically inserted here -->
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="stat-number">47</div>
+                <div class="stat-text">Научных работ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-number">23</div>
+                <div class="stat-text">Призовых места</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-number">58</div>
+                <div class="stat-text">Участников</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-number">5</div>
+                <div class="stat-text">Лет деятельности</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How to Participate Section -->
+<section class="participate-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Как принять участие</h2>
+        </div>
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="step-title">Выберите тему</h3>
+                <p>Определитесь с интересующей вас темой в области истории или обществознания</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="step-title">Исследуйте</h3>
+                <p>Изучите литературу, архивные материалы и проведите необходимые исследования</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <i class="fas fa-pencil-alt"></i>
+                </div>
+                <h3 class="step-title">Напишите работу</h3>
+                <p>Оформите результаты исследования в соответствии с требованиями</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3 class="step-title">Защитите проект</h3>
+                <p>Представьте свою работу на школьной или городской конференции</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://vk.com/licejj82?sh=6"><i class="fab fa-vk"></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Портфолио учителя истории и обществознания. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+        // Sample data for scientific works
+const scientificWorks = [
+            {
+                id: 1,
+                title: "Клиповое мышление: происхождение и влияние на социальные процессы",
+                authors: "Тычинина Анна",
+                description: "Исследование клипового мышления как феномен современного общества и выявление его влияния на социальные процессы.",
+                category: "society",
+                year: 2023,
+                class: "10",
+                image: "https://source.unsplash.com/random/600x400/?peter,the,great",
+                downloads: 124,
+                file: "Tychynina.pdf"
+            },
+            {
+                id: 2,
+                title: "Социальные последствия снижения уровня приватности людей из-за развития социальных сетей",
+                authors: "Балашова Виктория",
+                description: "Анализ социальных последствий снижения уровня приватности в связи с развитием информационных технологий.",
+                category: "society",
+                year: 2024,
+                class: "9",
+                image: "https://source.unsplash.com/random/600x400/?youth,culture",
+                downloads: 98,
+                file: "Balashova.pdf"
+            },
+            {
+                id: 3,
+                title: "Кинематограф - как элемент культуры современного школьника ",
+                authors: "Захарова Зоя",
+                description: "Изучение функции кинематографа в обществе относительно современных  школьников, а также процесс его влияния на эту же группу. Определение роли кинематографа в культуре современного школьника. ",
+                category: "society",
+                year: 2025,
+                class: "10",
+                image: "https://source.unsplash.com/random/600x400/?village,history",
+                downloads: 156,
+                file: "Zaharova.pdf"
+            },];
+
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+    });
+}
+
+// Close menu when clicking on a link
+const navLinks = document.querySelectorAll('nav a');
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        nav.classList.remove('active');
+    });
+});
+
+// Header scroll effect
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (header && window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else if (header) {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Функция для показа уведомлений
+function showNotification(message, type = 'info') {
+    // Создаем элемент уведомления
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Показываем уведомление
+    setTimeout(() => notification.classList.add('show'), 100);
+
+    // Автоматически скрываем через 4 секунды
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+
+// Основная функция скачивания для Flask
+async function downloadWorkFile(filename, workTitle, authors, description) {
+    try {
+        // Используем Flask маршрут для скачивания
+        const response = await fetch(`/download/${filename}`);
+
+        if (response.ok) {
+            // Создаем blob из ответа
+            const blob = await response.blob();
+
+            // Проверяем, не пустой ли blob (файл не найден)
+            if (blob.size === 0) {
+                throw new Error('Файл не найден на сервере');
+            }
+
+            const url = window.URL.createObjectURL(blob);
+
+            // Создаем ссылку для скачивания
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${workTitle.replace(/[^a-z0-9а-яё]/gi, '_')}.pdf`;
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Освобождаем URL
+            setTimeout(() => window.URL.revokeObjectURL(url), 100);
+
+            // Обновляем счетчик
+            updateDownloadCount(filename);
+
+            showNotification(`Файл "${workTitle}" успешно скачан`, 'success');
+        } else {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Ошибка при скачивании:', error);
+
+
+    }
+}
+
+// Функция для обновления счетчика скачиваний
+function updateDownloadCount(filename) {
+    const work = scientificWorks.find(w => w.file === filename);
+    if (work) {
+        work.downloads++;
+
+        // Обновляем отображение на странице
+        const downloadElements = document.querySelectorAll(`[data-file="${filename}"] .work-downloads`);
+        downloadElements.forEach(element => {
+            if (element) {
+                element.innerHTML = `<i class="fas fa-download"></i> ${work.downloads}`;
+            }
+        });
+
+        // Обновляем общую статистику
+        updateTotalStats();
+
+        // Отправляем данные на сервер (опционально)
+        updateServerDownloadCount(filename, work.downloads);
+    }
+}
+
+// Функция для обновления счетчика на сервере (опционально)
+async function updateServerDownloadCount(filename, count) {
+    try {
+        // Если у вас есть API для обновления счетчиков
+        await fetch('/api/update_download_count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                filename: filename,
+                downloads: count
+            })
+        });
+    } catch (error) {
+        console.error('Ошибка при обновлении счетчика на сервере:', error);
+    }
+}
+
+// Функция для обновления общей статистики
+function updateTotalStats() {
+    const totalDownloads = scientificWorks.reduce((sum, work) => sum + work.downloads, 0);
+    const totalWorks = scientificWorks.length;
+
+    // Обновляем отображение статистики
+    const statNumbers = document.querySelectorAll('.stat-number');
+    if (statNumbers.length >= 2) {
+        // Первый элемент - количество работ
+        statNumbers[0].textContent = totalWorks;
+        // Можно обновить и другие статистические данные
+    }
+}
+
+// Функция для показа деталей работы
+function showWorkDetails(workId) {
+    const work = scientificWorks.find(w => w.id === workId);
+    if (work) {
+        const categoryNames = {
+            'history': 'Историческое исследование',
+            'society': 'Обществоведческий проект',
+            'local': 'Краеведение',
+            'culture': 'История культуры'
+        };
+
+        // Создаем модальное окно с деталями
+        const modalContent = `
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000;">
+                <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2 style="color: #2c3e50; margin: 0;">${work.title}</h2>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">×</button>
+                    </div>
+                    <div style="display: grid; gap: 1rem;">
+                        <p><strong>Авторы:</strong> ${work.authors}</p>
+                        <p><strong>Категория:</strong> ${categoryNames[work.category]}</p>
+                        <p><strong>Год выполнения:</strong> ${work.year}</p>
+                        <p><strong>Класс:</strong> ${work.class}</p>
+                        <p><strong>Описание:</strong> ${work.description}</p>
+                    </div>
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                        <button onclick="downloadWorkFile('${work.file}', '${work.title}', '${work.authors}', '${work.description}')" style="background: #3498db; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer; flex: 1;">
+                            <i class="fas fa-download"></i> Скачать файл
+                        </button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: #95a5a6; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 5px; cursor: pointer;">
+                            Закрыть
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Добавляем модальное окно в body
+        const modal = document.createElement('div');
+        modal.innerHTML = modalContent;
+        document.body.appendChild(modal);
+    }
+}
+
+// Render works function
+function renderWorks(works) {
+    const worksContainer = document.getElementById('works-container');
+    if (!worksContainer) return;
+
+    worksContainer.innerHTML = '';
+
+    if (works.length === 0) {
+        worksContainer.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>Работы не найдены</h3>
+                <p>Попробуйте изменить параметры фильтрации</p>
+            </div>
+        `;
+        return;
+    }
+
+    works.forEach(work => {
+        const categoryNames = {
+            'history': 'Историческое исследование',
+            'society': 'Обществоведческий проект',
+            'local': 'Краеведение',
+            'culture': 'История культуры'
+        };
+
+        const workCard = document.createElement('div');
+        workCard.className = 'work-card';
+        workCard.setAttribute('data-file', work.file);
+        workCard.innerHTML = `
+            <div class="work-content">
+                <h3 class="work-title">${work.title}</h3>
+                <p class="work-authors">${work.authors}</p>
+                <p class="work-description">${work.description}</p>
+                <div class="work-meta">
+                    <div class="work-year">
+                        <i class="far fa-calendar"></i> ${work.year} год
+                    </div>
+                </div>
+                <div class="work-actions">
+                    <button class="btn btn-primary" onclick="downloadWorkFile('${work.file}', '${work.title}', '${work.authors}', '${work.description}')">
+                        <i class="fas fa-download"></i> Скачать файл
+                    </button>
+                    <button class="btn btn-secondary" onclick="showWorkDetails(${work.id})">
+                        <i class="fas fa-info-circle"></i> Подробнее
+                    </button>
+                </div>
+            </div>
+        `;
+
+        worksContainer.appendChild(workCard);
+
+        // Add animation after a short delay
+        setTimeout(() => {
+            workCard.classList.add('animate');
+        }, 100);
+    });
+}
+
+// Filter works function
+function filterWorks() {
+    const categoryFilter = document.getElementById('category');
+    const yearFilter = document.getElementById('year');
+    const classFilter = document.getElementById('class');
+    const searchFilter = document.getElementById('search');
+
+    if (!categoryFilter || !yearFilter || !classFilter || !searchFilter) return;
+
+    const categoryValue = categoryFilter.value;
+    const yearValue = yearFilter.value;
+    const classValue = classFilter.value;
+    const searchValue = searchFilter.value.toLowerCase();
+
+    const filteredWorks = scientificWorks.filter(work => {
+        const matchesCategory = categoryValue === 'all' || work.category === categoryValue;
+        const matchesYear = yearValue === 'all' || work.year.toString() === yearValue;
+        const matchesClass = classValue === 'all' || work.class === classValue;
+        const matchesSearch =
+            work.title.toLowerCase().includes(searchValue) ||
+            work.authors.toLowerCase().includes(searchValue) ||
+            work.description.toLowerCase().includes(searchValue);
+
+        return matchesCategory && matchesYear && matchesClass && matchesSearch;
+    });
+
+    renderWorks(filteredWorks);
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+    // Render initial works
+    renderWorks(scientificWorks);
+
+    // Add event listeners to filters
+    const categoryFilter = document.getElementById('category');
+    const yearFilter = document.getElementById('year');
+    const classFilter = document.getElementById('class');
+    const searchFilter = document.getElementById('search');
+
+    if (categoryFilter) categoryFilter.addEventListener('change', filterWorks);
+    if (yearFilter) yearFilter.addEventListener('change', filterWorks);
+    if (classFilter) classFilter.addEventListener('change', filterWorks);
+    if (searchFilter) searchFilter.addEventListener('input', filterWorks);
+
+    // Initialize total stats
+    updateTotalStats();
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+
+
+
+
+</script>
+</body>
+{% endblock %}

@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <h1>Общая информация</h1>
+            <p>Профессиональный путь, образование и философия преподавания</p>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-container">
+
+            <div class="about-content">
+                <h2>Марина Борисовна Вахромеева</h2>
+                <div class="about-text">
+                    <p>ТекстТексТекст</p>
+                    <p>ТекстТексТекст</p>
+                </div>
+
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h3>Высшая категория</h3>
+                            <p>Подтвержденная квалификация и регулярное повышение профессионального уровня</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="highlight-content">
+                            <h3>500+ учеников</h3>
+                            <p>Выпускники успешно сдают экзамены и поступают в ведущие вузы страны</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Philosophy Section -->
+<section class="philosophy-section">
+    <div class="container">
+        <div class="philosophy-content">
+            <div class="philosophy-quote">
+                ТУТ БУДЕТ ЦИТАТА
+            </div>
+            <p class="philosophy-author">— Вахромеева Марина Борисовна</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Связаться со мной</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Контактная информация</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email</strong>
+                            <p>example@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Телефон</strong>
+                            <p>+7 (XXX) XXX-XX-XX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Адрес</strong>
+                            <p>г. Нижний Новгород, ул. Культуры, д. 1, МАОУ "Лицей №82"</p>
+                        </div>
+                    </div>
+                </div>
+                <p>Я всегда открыта для профессионального общения, сотрудничества и обмена опытом. Не стесняйтесь
+                    связаться со мной по любым вопросам, связанным с образовательным процессом.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://vk.com/licejj82?sh=6"><i class="fab fa-vk"></i></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Портфолио учителя истории и обществознания. Все права защищены.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>// Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+
+                    // Animate skill bars
+                    if (entry.target.classList.contains('skill-progress')) {
+                        const width = entry.target.getAttribute('data-width');
+                        setTimeout(() => {
+                            entry.target.style.width = width + '%';
+                        }, 300);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        const animatedElements = document.querySelectorAll('.timeline-item, .skill-progress');
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Сообщение отправлено! Я свяжусь с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+
+
+
+</script>
+{% endblock %}
