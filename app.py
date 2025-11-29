@@ -1,8 +1,7 @@
 from flask import Flask, render_template, send_file
 import os
 
-app = Flask('Flask')
-
+app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -43,4 +42,5 @@ def download_file(filename):
         return "File not found", 404
 
 
-app.run(debug=True, host='0.0.0.0', port='8080')
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8000, debug=False)
