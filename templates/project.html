@@ -250,7 +250,7 @@ async function downloadVictoryArchive() {
     try {
         showNotification('Подготовка архива всех материалов проекта...', 'info');
 
-        const response = await fetch('/download/victory/victory_project_archive.zip');
+        const response = await fetch('/download/project/zip.rar');
 
         if (response.ok) {
             const blob = await response.blob();
