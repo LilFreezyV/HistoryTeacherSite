@@ -3,6 +3,7 @@ import os
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template('main.html')
@@ -21,7 +22,6 @@ def science():
 @app.route('/cultural')
 def cultural():
     return render_template('cultural.html')
-
 
 
 @app.route('/download/<filename>')
