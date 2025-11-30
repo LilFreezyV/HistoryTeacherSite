@@ -249,7 +249,7 @@ function showNotification(message, type = 'info') {
 async function downloadWorkFile(filename, workTitle, authors, description) {
     try {
         // Используем Flask маршрут для скачивания
-        const response = await fetch(`/download/${filename}`);
+        const response = await fetch(`/download/science/${filename}`);
 
         if (response.ok) {
             // Создаем blob из ответа
@@ -423,7 +423,9 @@ function renderWorks(works) {
             <div class="work-content">
                 <h3 class="work-title">${work.title}</h3>
                 <p class="work-authors">${work.authors}</p>
-                <p class="work-description">${work.description}</p>
+                <div class="fixed-description">
+                            <p><strong>Описание:</strong> ${work.description}</p>
+                </div>
                 <div class="work-meta">
                     <div class="work-year">
                         <i class="far fa-calendar"></i> ${work.year} год
@@ -522,5 +524,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 </script>
-</body>
+
 {% endblock %}

@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <h1>Духовно-нравственное воспитание</h1>
+            <p>Проект "День Победы" - Культурно-просветительская работа</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Вставьте этот код в раздел проекта "День Победы" -->
+
+
+<div class="project-description">
+    <p>Образовательный проект, посвященный изучению истории Великой Отечественной войны и патриотическому воспитанию
+        учащихся.</p>
+</div>
+
+<div class="materials-section">
+    <h3 class="materials-title">Материалы проекта</h3>
+
+    <!-- Контейнер для динамически добавляемых материалов -->
+    <div class="materials-grid" id="victory-materials-container">
+        <!-- Материалы будут добавлены скриптом -->
+    </div>
+
+    <div class="project-actions">
+        <button class="btn btn-gold" onclick="showProjectDetails()">
+            <i class="fas fa-info-circle"></i> Подробнее о проекте
+        </button>
+        <button class="btn" id="download-archive-btn">
+            <i class="fas fa-download"></i> Скачать все материалы
+        </button>
+    </div>
+</div>
+
+
+<script>
+        // Данные для проекта "День Победы"
+const victoryDayMaterials = [
+    {
+        id: 1,
+        title: "Кузница Победы",
+        description: "Полная презентация с хронологией событий Великой Отечественной войны и основными этапами проекта",
+        file: "file1.pdf",
+        type: "presentation",
+        size: "15.2 МБ",
+        downloads: 234,
+        icon: "file-powerpoint"
+    },
+    {
+        id: 2,
+        title: "Исследовательская работа",
+        description: "Герои Великой Отечественной войны - наши земляки - исследование учеников 10 класса",
+        file: "victory_research.pdf",
+        type: "research",
+        size: "8.7 МБ",
+        downloads: 187,
+        icon: "file-alt"
+    },
+    {
+        id: 3,
+        title: "Сценарий мероприятия",
+        description: "Сценарий торжественного вечера Память сердца с музыкальным сопровождением и реквизитом",
+        file: "victory_scenario.docx",
+        type: "scenario",
+        size: "5.3 МБ",
+        downloads: 156,
+        icon: "theater-masks"
+    },
+    {
+        id: 4,
+        title: "Фотоархив проекта",
+        description: "Фотографии с экскурсий, встреч с ветеранами, творческих работ учащихся и торжественных мероприятий",
+        file: "victory_photos.zip",
+        type: "archive",
+        size: "45.1 МБ",
+        downloads: 312,
+        icon: "images"
+    },
+    {
+        id: 5,
+        title: "Видеоотчет",
+        description: "Видеозапись литературно-музыкальной композиции Поклонимся великим тем годам в исполнении учащихся",
+        file: "victory_video.mp4",
+        type: "video",
+        size: "125.4 МБ",
+        downloads: 423,
+        icon: "video"
+    },
+    {
+        id: 6,
+        title: "Методические рекомендации",
+        description: "Методическое пособие для учителей по организации патриотических мероприятий и исследовательской работы",
+        file: "victory_methodology.pdf",
+        type: "methodology",
+        size: "12.8 МБ",
+        downloads: 98,
+        icon: "book"
+    }
+];
+
+// Функция для рендеринга материалов проекта "День Победы"
+function renderVictoryDayMaterials() {
+    const materialsContainer = document.getElementById('victory-materials-container');
+    if (!materialsContainer) return;
+
+    materialsContainer.innerHTML = '';
+
+    victoryDayMaterials.forEach(material => {
+        const materialCard = document.createElement('div');
+        materialCard.className = 'material-card';
+        materialCard.innerHTML = `
+            <div class="material-header">
+                <h4 class="material-title">${material.title}</h4>
+                <i class="fas fa-${material.icon} material-icon"></i>
+            </div>
+            <p class="material-description">${material.description}</p>
+        `;
+
+        // Добавляем обработчик клика для скачивания
+        materialCard.addEventListener('click', () => {
+            downloadVictoryMaterial(material.file, material.title, material.description);
+        });
+
+        materialsContainer.appendChild(materialCard);
+    });
+}
+
+// Функция для получения расширения файла
+function getFileExtension(filename) {
+    return filename.split('.').pop();
+}
+
+// Функция для скачивания материалов проекта "День Победы"
+async function downloadVictoryMaterial(filename, title, description) {
+    try {
+        // Используем Flask маршрут для скачивания
+        const response = await fetch(`/download/project/${filename}`);
+
+        if (response.ok) {
+            // Создаем blob из ответа
+            const blob = await response.blob();
+
+            // Проверяем, не пустой ли blob (файл не найден)
+            if (blob.size === 0) {
+                throw new Error('Файл не найден на сервере');
+            }
+
+            const url = window.URL.createObjectURL(blob);
+
+            // Создаем ссылку для скачивания
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${title.replace(/[^a-z0-9а-яё]/gi, '_')}.${getFileExtension(filename)}`;
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Освобождаем URL
+            setTimeout(() => window.URL.revokeObjectURL(url), 100);
+
+            // Обновляем счетчик скачиваний
+            updateVictoryDownloadCount(filename);
+
+            showNotification(`Файл "${title}" успешно скачан`, 'success');
+        } else {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Ошибка при скачивании:', error);
+
+        // Если файл не найден, создаем демо-версию
+        if (error.message.includes('не найден') || error.message.includes('404')) {
+            createDemoVictoryFile(filename, title, description);
+        } else {
+            showNotification('Ошибка при скачивании файла', 'error');
+        }
+    }
+}
+
+// Функция для обновления счетчика скачиваний
+function updateVictoryDownloadCount(filename) {
+    const material = victoryDayMaterials.find(m => m.file === filename);
+    if (material) {
+        material.downloads++;
+
+        // Обновляем отображение на странице
+        const downloadElement = document.querySelector(`[data-file="${filename}"] .material-downloads span`);
+        if (downloadElement) {
+            downloadElement.textContent = material.downloads;
+        }
+
+        // Обновляем все элементы с этим файлом
+        const allDownloadElements = document.querySelectorAll(`.material-card .material-downloads span`);
+        allDownloadElements.forEach(element => {
+            const card = element.closest('.material-card');
+            if (card && card.querySelector('.material-title').textContent === material.title) {
+                element.textContent = material.downloads;
+            }
+        });
+    }
+}
+
+// Функция для создания демо-файла (если реальный файл не найден)
+function createDemoVictoryFile(filename, title, description) {
+    const content = `
+        ПРОЕКТ "ДЕНЬ ПОБЕДЫ"
+
+        Название: ${title}
+        Описание: ${description}
+        Файл: ${filename}
+
+        Это демонстрационная версия файла.
+        В реальном приложении здесь был бы полный материал проекта.
+
+        Проект выполнен под руководством:
+        Вахромеевой Марины Борисовны
+        Учителя истории и обществознания
+
+        © ${new Date().getFullYear()}
+    `;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${title.replace(/[^a-z0-9а-яё]/gi, '_')}_demo.txt`;
+    link.style.display = 'none';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Освобождаем URL
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+
+    showNotification(`Создана демо-версия файла "${title}"`, 'info');
+}
+
+// Функция для скачивания всего архива проекта
+async function downloadVictoryArchive() {
+    try {
+        showNotification('Подготовка архива всех материалов проекта...', 'info');
+
+        const response = await fetch('/download/victory/victory_project_archive.zip');
+
+        if (response.ok) {
+            const blob = await response.blob();
+
+            if (blob.size === 0) {
+                throw new Error('Архив не найден на сервере');
+            }
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Проект_День_Победы_полный.zip';
+            link.style.display = 'none';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(() => window.URL.revokeObjectURL(url), 100);
+
+            showNotification('Архив проекта успешно скачан', 'success');
+        } else {
+            throw new Error('Архив временно недоступен');
+        }
+
+    } catch (error) {
+        console.error('Ошибка при скачивании архива:', error);
+        showNotification('Не удалось скачать архив. Попробуйте позже.', 'error');
+    }
+}
+
+// Функция для показа уведомлений
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => notification.classList.add('show'), 100);
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    renderVictoryDayMaterials();
+
+    // Добавляем обработчик для кнопки скачивания архива
+    const archiveBtn = document.getElementById('download-archive-btn');
+    if (archiveBtn) {
+        archiveBtn.addEventListener('click', downloadVictoryArchive);
+    }
+});
+
+        function showProjectDetails() {
+            const details = `
+                <div style="max-width: 600px; padding: 2rem;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif;">Детали проекта "День Победы"</h3>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Основная информация</h4>
+                        <div style="display: grid; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <p><strong>Сроки реализации:</strong> Февраль - Май 2023 года</p>
+                            <p><strong>Участники:</strong> Учащиеся 8-11 классов (45 человек)</p>
+                            <p><strong>Руководитель:</strong> Вахромеева М.Б.</p>
+                            <p><strong>Цель:</strong> Патриотическое воспитание и сохранение исторической памяти</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Основные этапы проекта</h4>
+                        <ul style="padding-left: 1.5rem; line-height: 1.6;">
+                            <li>Исследовательская работа "Герои-земляки в Великой Отечественной войне"</li>
+                            <li>Создание виртуального музея боевой славы</li>
+                            <li>Встречи с ветеранами и тружениками тыла</li>
+                            <li>Литературно-музыкальная композиция "Поклонимся великим тем годам"</li>
+                            <li>Выставка творческих работ и исследовательских проектов</li>
+                            <li>Участие в городском конкурсе патриотических проектов</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: var(--accent-color); margin-bottom: 1rem;">Достижения</h4>
+                        <ul style="padding-left: 1.5rem; line-height: 1.6;">
+                            <li>3 призовых места на городском конкурсе</li>
+                            <li>15 исследовательских работ учащихся</li>
+                            <li>Организация 5 встреч с ветеранами</li>
+                            <li>Создание виртуального музея с 50+ экспонатами</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()"
+                            style="background: var(--accent-color); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; font-size: 1rem;">
+                        Закрыть
+                    </button>
+                </div>
+            `;
+
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 10px; max-width: 90%; max-height: 90%; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    ${details}
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}

@@ -24,14 +24,28 @@ def cultural():
     return render_template('cultural.html')
 
 
-@app.route('/download/<filename>')
-def download_file(filename):
+@app.route('/project')
+def project():
+    return render_template('project.html')
+
+
+@app.route('/download/science/<filename>')
+def download_scientific_file(filename):
     try:
-        file_path = os.path.join(app.root_path, 'static', 'pdf', filename)
+        file_path = os.path.join(app.root_path, 'static', 'pdf', 'science', filename)
+        return send_file(file_path, as_attachment=True)
+    except FileNotFoundError:
+        return "File not found", 404
+
+
+@app.route('/download/project/<filename>')
+def download_victory_file(filename):
+    try:
+        file_path = os.path.join(app.root_path, 'static', 'pdf', 'project', filename)
         return send_file(file_path, as_attachment=True)
     except FileNotFoundError:
         return "File not found", 404
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=False)
+    app.run(host='127.0.0.1', port=8000, debug=True)
