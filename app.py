@@ -18,19 +18,10 @@ def science():
     return render_template('science.html')
 
 
-@app.route('/achievements')
-def achievements():
-    return render_template('achievements.html')
-
-
 @app.route('/cultural')
 def cultural():
     return render_template('cultural.html')
 
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 
 @app.route('/download/<filename>')
