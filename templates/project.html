@@ -31,14 +31,6 @@
         <h3 class="video-title">${video.title}</h3>
         <p class="video-description">${video.description}</p>
         <a href="${video.videoUrl}">Ссылка на видео</a>
-        <div class="video-meta">
-            <div class="video-date">
-                <i class="far fa-calendar"></i> ${video.date}
-            </div>
-            <div class="video-views">
-                <i class="far fa-eye"></i> ${video.views} просмотров
-            </div>
-        </div>
     </div>
 
 
@@ -78,6 +70,23 @@ const victoryDayMaterials = [
         downloads: 312,
         icon: "images"
     }];
+
+    const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+        }
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
 
 // Функция для рендеринга материалов проекта "День Победы"
 function renderVictoryDayMaterials() {
@@ -365,6 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+
 
 
 
