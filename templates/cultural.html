@@ -167,29 +167,6 @@
             }
         }
 
-        // Функция для добавления нового видео
-        async function addNewVideo(videoUrl, title = "Новое видео", description = "Видео из ВКонтакте") {
-            try {
-                const embedUrl = await convertVKVideoUrl(videoUrl);
-
-                const newVideo = {
-                    id: Date.now(), // Генерируем уникальный ID
-                    title: title,
-                    description: description,
-                    videoUrl: embedUrl,
-                    date: new Date().toLocaleDateString('ru-RU'),
-                    views: 0
-                };
-
-                culturalVideos.unshift(newVideo);
-                renderVideos();
-                showNotification('Видео успешно добавлено!', 'success');
-
-            } catch (error) {
-                console.error('Ошибка добавления видео:', error);
-                showNotification(error.message, 'error');
-            }
-        }
 
         // Функция рендеринга видео
         function renderVideos() {
@@ -202,16 +179,10 @@
                 const videoCard = document.createElement('div');
                 videoCard.className = 'video-card';
                 videoCard.innerHTML = `
-                    <div class="video-player">
-                        <iframe src="${video.videoUrl}"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                        </iframe>
-                    </div>
                     <div class="video-content">
                         <h3 class="video-title">${video.title}</h3>
                         <p class="video-description">${video.description}</p>
+                        <a href="${video.videoUrl}">Ссылка на видео</a>
                         <div class="video-meta">
                             <div class="video-date">
                                 <i class="far fa-calendar"></i> ${video.date}
