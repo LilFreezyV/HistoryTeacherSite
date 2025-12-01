@@ -27,6 +27,23 @@
         <!-- Материалы будут добавлены скриптом -->
     </div>
 
+    <div class="video-content">
+        <h3 class="video-title">${video.title}</h3>
+        <p class="video-description">${video.description}</p>
+        <a href="${video.videoUrl}">Ссылка на видео</a>
+        <div class="video-meta">
+            <div class="video-date">
+                <i class="far fa-calendar"></i> ${video.date}
+            </div>
+            <div class="video-views">
+                <i class="far fa-eye"></i> ${video.views} просмотров
+            </div>
+        </div>
+    </div>
+
+
+    <p class="material-description"></p>
+
     <div class="project-actions">
         <button class="btn btn-gold" onclick="showProjectDetails()">
             <i class="fas fa-info-circle"></i> Подробнее о проекте
@@ -348,6 +365,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+
+
+
+
 
 
 
