@@ -21,7 +21,20 @@
     <div class="materials-grid" id="victory-materials-container">
     </div>
     <p class="material-description"></p>
-
+</div>
+<div class="videos-grid" id="videos-container">
+    <div class="video-card">
+        <div class="video-content">
+            <h3 class="video-title">${video.title}</h3>
+            <p class="video-description">${video.description}</p>
+            <a href="${video.videoUrl}">Ссылка на видео</a>
+            <div class="video-meta">
+                <div class="video-date">
+                    <i class="far fa-calendar"></i> ${video.date}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -41,7 +54,7 @@ const victoryDayMaterials = [
     {
         id: 2,
         title: "Фотоархив проекта",
-        description: "Фотографии с концертов, полные видеозаписи с выступлений прошлых лет.",
+        description: "Здесь вы можете найти полный список ссылок на все видеоматериалы с концертов памяти Великой Победы.",
         file: "links.txt",
         type: "archive",
         size: "45.1 МБ",
@@ -352,6 +365,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+
+
+
+
+
 
 
 

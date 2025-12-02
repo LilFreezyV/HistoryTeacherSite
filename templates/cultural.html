@@ -54,9 +54,9 @@
         const culturalVideos = [
             {
                 id: 1,
-                title: "Вальс. День Победы",
-                description: "Видео от Лицей №82 Нижнего Новгорода",
-                videoUrl: "https://yandex.ru/video/touch/preview/10867297199756574574",
+                title: "...",
+                description: "Пока здесь пусто, но очень скоро появятся новые материалы.",
+                videoUrl: "",
                 date: "15.10.2023",
                 views: 234
             }];
@@ -159,11 +159,8 @@
                     <div class="video-content">
                         <h3 class="video-title">${video.title}</h3>
                         <p class="video-description">${video.description}</p>
-                        <a href="${video.videoUrl}">Ссылка на видео</a>
+                        <!--<a href="${video.videoUrl}">Ссылка на видео</a>-->
                         <div class="video-meta">
-                            <div class="video-date">
-                                <i class="far fa-calendar"></i> ${video.date}
-                            </div>
                         </div>
                     </div>
                 `;
@@ -177,30 +174,7 @@
             });
         }
 
-        // Функция рендеринга мероприятий
-        function renderEvents() {
-            const eventsContainer = document.getElementById('events-container');
-            if (!eventsContainer) return;
 
-            eventsContainer.innerHTML = '';
-
-            culturalEvents.forEach(event => {
-                const eventCard = document.createElement('div');
-                eventCard.className = 'event-card';
-                eventCard.innerHTML = `
-                    <div class="event-image">
-                        <img src="${event.image}" alt="${event.title}" loading="lazy">
-                    </div>
-                    <div class="event-content">
-                        <div class="event-date">${event.date}</div>
-                        <h3 class="event-title">${event.title}</h3>
-                        <p class="event-description">${event.description}</p>
-                    </div>
-                `;
-
-                eventsContainer.appendChild(eventCard);
-            });
-        }
 
         // Функция рендеринга галереи
         function renderGallery() {
@@ -224,7 +198,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Рендерим все секции
             renderVideos();
-            renderEvents();
             renderGallery();
 
             // Обработчик добавления видео
